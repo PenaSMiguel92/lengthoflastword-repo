@@ -1,30 +1,16 @@
 import java.util.*;
 public class Solution {
     public int lengthOfLastWord(String s) {
-        List<String> words = new ArrayList<>(); 
-        int beginIndex = -1;
-        int endIndex = -1;
-        int curIndex = 0;
-        while (curIndex < s.length()) {
-            char curChar = s.charAt(curIndex);
-            if (Character.isAlphabetic(curChar) && beginIndex == -1) beginIndex = curIndex;
-            
-            if (!Character.isAlphabetic(curChar) && beginIndex != -1) {
-                endIndex = curIndex + 1;
-                words.add(s.substring(beginIndex, endIndex));
-                beginIndex = -1;
-                endIndex = -1;
+        int length = 0;
+        for (int i = s.length() - 1; i >= 0; i--) {
+            if (Character.isAlphabetic(s.charAt(i))) {
+                length++;
+            } else {
+                if (length > 0)
+                    return length;
             }
-
-            if (curIndex + 1 >= s.length() && beginIndex != -1) {
-                endIndex = curIndex + 1;
-                words.add(s.substring(beginIndex, endIndex));
-                beginIndex = -1;
-                endIndex = -1;
-            }
-            curIndex++;
         }
         
-        return words.get(words.size()-1).length();
+        return length;
     }
 }
